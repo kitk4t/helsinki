@@ -16,18 +16,28 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
+  const [points, setPoints] = useState([0,0,0,0,0,0,0])
 
   const randomAssign = () => {
     const randomNum = Math.floor(Math.random() * 6);
     setSelected(randomNum)
   }
 
+  const increaseVote = () => {
+    const copy = [...points]
+    copy[selected] +=1
+    setPoints(copy)
+  } 
+
+
   return (
     <div>
     <p>{anecdotes[selected]}</p>
+    <p>This anecdote has {points[selected]} votes.</p>
 
+    <Button handleClick={() => increaseVote()} text="vote"/>
     <Button handleClick={() => randomAssign()} text="next anecdote"/>
-
+    
     </div>
   )
 }

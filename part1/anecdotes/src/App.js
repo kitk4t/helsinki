@@ -17,6 +17,7 @@ const App = () => {
    
   const [selected, setSelected] = useState(0)
   const [points, setPoints] = useState([0,0,0,0,0,0,0])
+  // const [most, setMost] = useState()
 
   const randomAssign = () => {
     const randomNum = Math.floor(Math.random() * 6);
@@ -29,14 +30,42 @@ const App = () => {
     setPoints(copy)
   } 
 
+  const DisplayMost = () => {
+    const copy = [...points]
+    const highest = Math.max(...copy);
+    let phrase = '';
+    let secondPhrase = '';
+
+    if (highest === 0) {
+      phrase = 'No votes yet.' }
+    else {
+      for (let i=0; i<7; i++ ) {
+      if (copy[i] === highest) {
+      phrase = anecdotes[i]
+      secondPhrase = 'This has ' + highest + ' votes.'
+      }}
+    }
+
+    return (
+      <>
+      <p>{phrase}</p>
+      <p>{secondPhrase}</p>
+      </>
+    )
+  }
+
 
   return (
     <div>
+    <h1>Anecdote of the day</h1>
     <p>{anecdotes[selected]}</p>
     <p>This anecdote has {points[selected]} votes.</p>
 
     <Button handleClick={() => increaseVote()} text="vote"/>
     <Button handleClick={() => randomAssign()} text="next anecdote"/>
+
+    <h1>Anecdote with most votes</h1>
+    <DisplayMost/>
     
     </div>
   )

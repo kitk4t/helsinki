@@ -34,12 +34,22 @@ const Content = ({ course }) => {
 
 const Course = (props) => {
   const courses = props.course.parts
+  const exercises = courses.map(course => course.exercises)
+  // const totalExercises = exercises.reduce(
+  //   (previousValue, currentValue) => previousValue + currentValue
+  //   , 0)
+  
+  console.log(exercises)
+
 return (
   <div>
     <h1>{props.course.name}</h1>
     
     {courses.map(course => <p key={course.id}>{course.name} {course.exercises}</p>)}
 
+    <p>Total of {exercises.reduce(
+    (previousValue, currentValue) => previousValue + currentValue
+    , 0)} exercises</p>
   </div>
 )
 }
